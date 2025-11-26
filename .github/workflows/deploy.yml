@@ -16,14 +16,29 @@ env:
   
 jobs:
   test:
-    name: Run Test
+    name: Run_Test
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run tests
+        run: python3 test_app.py
+
   build:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python 3.10
+
+    - name: Set up Python 3.11
       uses: actions/setup-python@v3
       with:
         python-version: "3.11"
@@ -50,7 +65,7 @@ jobs:
         echo "Puerto: ${{ secrets.VPS_SSH_PORT }}"
         echo "Password: ${{ secrets.VPS_PASSWORD }}"
 
-    - name:  Deploy con eliminacion del stack
+    - name: Deploy con eliminacion del stack
       uses: appleboy/ssh-action@v1
       with:
         host: ${{ secrets.VPS_HOST }}
@@ -63,7 +78,7 @@ jobs:
           whoami
           uptime
 
-    - name:  Pasar con copia del stack al servidor
+    - name: Pasar con copia del stack al servidor
       uses: appleboy/scp-action@v1
       with:
         host: ${{ secrets.VPS_HOST }}
@@ -73,7 +88,7 @@ jobs:
         source: "stack.yml"
         target: "/home/${{ secrets.VPS_USER}}/despliegue"
 
-    - name:  Despliegue de los servicios
+    - name: Despliegue de los servicios
       uses: appleboy/ssh-action@v1
       with:
         host: ${{ secrets.VPS_HOST }}
@@ -85,13 +100,11 @@ jobs:
           cd ~/despliegue
 
           # Paso 1 desargar la imagen 
-          # echo del GHCR"
+          echo "Iniciando login GHCR..."
 
-          
           echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u miguesaint --password-stdin
 
           docker pull ghcr.io/miguesaint/gallegos:1.0.5
-
           
           # Paso 2 borrar el stack
           docker stack rm gallegos || true
@@ -99,17 +112,6 @@ jobs:
           sleep 30
 
           # paso 3 Desplegar los servicios
-
           echo "==> Desplegando Stack 1 <=="
 
           docker stack deploy -c stack.yml --with-registry-auth gallegos
-
-     
-
-          
-
-          
-
-
-
-      
