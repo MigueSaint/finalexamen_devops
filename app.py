@@ -48,7 +48,7 @@ def home():
         nombre = request.form.get("nombre")
 
         if accion == "saludar":
-            mensaje = f"Hola {nombre}. Bienvenido al proyecto AMSG DevOps."
+            mensaje = f"Hola {nombre}. Bienvenido al proyecto Miguel Sosa en DevOps."
         elif accion == "limpiar":
             mensaje = "El formulario ha sido limpiado correctamente."
 
