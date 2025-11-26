@@ -88,21 +88,21 @@ jobs:
           # echo del GHCR"
 
           
-          echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u paul1578 --password-stdin
+          echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u miguesaint --password-stdin
 
           docker pull ghcr.io/miguesaint/gallegos:1.0.5
 
           
           # Paso 2 borrar el stack
-          docker stack rm cristhian || true
+          docker stack rm gallegos || true
 
           sleep 30
 
           # paso 3 Desplegar los servicios
 
-          echo "==> Desplegando Stack <=="
+          echo "==> Desplegando Stack 1 <=="
 
-          docker stack deploy -c stack.yml --with-registry-auth cristhian
+          docker stack deploy -c stack.yml --with-registry-auth gallegos
 
      
 
