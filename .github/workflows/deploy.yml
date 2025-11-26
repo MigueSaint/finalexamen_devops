@@ -1,15 +1,23 @@
-name: Deploy AMSG Desde Cero
+name: Despliegue Final Devops AMSG
 
 on:
   push:
     branches: 
-      - amsg
+      - gallegos
 
 permissions:
   contents: read
   packages: write
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: gallegos
+  IMAGE_TAG: 1.0.5
+  
 jobs:
+  test:
+    name: Run Test
+    runs-on: ubuntu-latest
   build:
     runs-on: ubuntu-latest
 
@@ -32,7 +40,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: ghcr.io/miguesaint/amsgdecero:1.0.0
+        tags: ghcr.io/miguesaint/gallegos:1.0.5
 
     - name: Mostrar variables basicas
       run: |
@@ -82,7 +90,7 @@ jobs:
           
           echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u paul1578 --password-stdin
 
-          docker pull ghcr.io/miguesaint/amsgdecero:1.0.0
+          docker pull ghcr.io/miguesaint/gallegos:1.0.5
 
           
           # Paso 2 borrar el stack

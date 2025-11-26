@@ -1,22 +1,22 @@
 version: "3.9"
 
 services:
-  webamgs_cero:
-    image: ghcr.io/miguesaint/amsgdecero:1.0.0
+  gallegos:
+    image: ghcr.io/miguesaint/gallegos:1.0.5
     deploy:
       replicas: 1
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.webamgs_cero.entrypoints=http"
-        - "traefik.http.routers.webamgs_cero.rule=Host(`webamgs_cero.byronrm.com`)"
-        - "traefik.http.middlewares.webamgs_cero-https-redirect.redirectscheme.scheme=https"
-        - "traefik.http.routers.webamgs_cero.middlewares=webamgs_cero-https-redirect"
-        - "traefik.http.routers.webamgs_cero-secure.entrypoints=https"
-        - "traefik.http.routers.webamgs_cero-secure.rule=Host(`webamgs_cero.byronrm.com`)"
-        - "traefik.http.routers.webamgs_cero-secure.tls=true"
-        - "traefik.http.routers.webamgs_cero-secure.tls.certresolver=http"
-        - "traefik.http.routers.webamgs_cero-secure.service=webamgs_cero"
-        - "traefik.http.services.webamgs_cero.loadbalancer.server.port=80"
+        - "traefik.http.routers.gallegos.entrypoints=http"
+        - "traefik.http.routers.gallegos.rule=Host(`gallegos.byronrm.com`)"
+        - "traefik.http.middlewares.gallegos-https-redirect.redirectscheme.scheme=https"
+        - "traefik.http.routers.gallegos.middlewares=gallegos-https-redirect"
+        - "traefik.http.routers.gallegos-secure.entrypoints=https"
+        - "traefik.http.routers.gallegos-secure.rule=Host(`gallegos.byronrm.com`)"
+        - "traefik.http.routers.gallegos-secure.tls=true"
+        - "traefik.http.routers.gallegos-secure.tls.certresolver=http"
+        - "traefik.http.routers.gallegos-secure.service=gallegos"
+        - "traefik.http.services.gallegos.loadbalancer.server.port=80"
         - "traefik.docker.network=traefik-public"
     networks:
       - traefik-public
