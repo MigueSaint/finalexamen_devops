@@ -11,7 +11,7 @@ permissions:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: gallegos
+  IMAGE_NAME: gallegossosa
   IMAGE_TAG: 1.0.5
   
 jobs:
@@ -55,7 +55,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: ghcr.io/miguesaint/gallegos:1.0.5
+        tags: ghcr.io/miguesaint/gallegossosa:1.0.5
 
     - name: Mostrar variables basicas
       run: |
@@ -104,7 +104,7 @@ jobs:
 
           echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u miguesaint --password-stdin
 
-          docker pull ghcr.io/miguesaint/gallegos:1.0.5
+          docker pull ghcr.io/miguesaint/gallegossosa:1.0.5
           
           # Paso 2 borrar el stack
           docker stack rm gallegos || true

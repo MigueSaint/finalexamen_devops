@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   gallegos:
-    image: ghcr.io/miguesaint/gallegos:1.0.5
+    image: ghcr.io/miguesaint/gallegossosa:1.0.5
     deploy:
       replicas: 1
       labels:
